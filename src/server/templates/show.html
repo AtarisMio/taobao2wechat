@@ -21,3 +21,15 @@
     <a class="tobuy" href="https://item.taobao.com/item.htm?id={{id}}">去购买</a>
     <a class="toTop" href="javascript:window.scrollTo(0,0);">顶部</a>
 </div>
+
+<script>
+    window.onload = function () {
+        if (/MicroMessenger/i.test(window.navigator.userAgent.toLowerCase())) {
+            var tobuy = document.querySelector('.tobuy');
+            tobuy.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('点击右上角，用其它浏览器打开淘宝链接');
+            })
+        }
+    }
+</script>
