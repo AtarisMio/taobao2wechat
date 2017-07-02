@@ -13,7 +13,9 @@ module.exports = (app) => {
         proxy /tmall to www.tmall.com
     */
     // require('./proxyToTaobao')(app);
-
+    app.get('/', (req, res) => {
+        res.redirect('/crawler/');
+    })
     app.all('*', (req, res) => {
         res.send(404);
     })
