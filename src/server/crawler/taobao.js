@@ -20,7 +20,7 @@ const getData = async (id) => {
             reduce,
             promotion: p.promotionList
                         .map(({ price, type }) => { return { price, type }; })
-                        .sort((a, b) => Number(a.price) - Number(b.price))
+                        .sort((a, b) => Number(b.price) - Number(a.price))
         }
     });
     return { id, title, img, price };
