@@ -5,7 +5,7 @@ const show = async (req, res) => {
 };
 
 const put = async (req, res) => {
-    res.render('put');
+    res.render('put', { title: '淘宝链接转换' });
 }
 module.exports = {
     show,
