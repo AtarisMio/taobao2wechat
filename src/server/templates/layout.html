@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/site.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    {{!-- 包了一层作用是电脑打开时以手机界面显示 --}}
+    <div class="container">
+        {{{ body }}}
+        <div class="footer">
+            {{#if copyright}}
+            <p class="copyright">{{{ copyright }}}</p>
+            {{/if}}
+            {{#if recordcode}}
+            <p class="recordcode">{{{ recordcode }}}</p>
+            {{/if}}
+        </div>
+    </div>
+</body>
+</html>

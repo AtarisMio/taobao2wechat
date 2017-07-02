@@ -1,0 +1,57 @@
+<div class="submit_crawler">
+    <h1>淘宝链接转换</h1>
+    <h2>可在微信中显示淘宝基本信息，并引导用户打开淘宝</h2>
+    <p class="tips">请输入您的淘宝商品地址：</p>
+    <textarea id="targetUrl" class="targetUrl"></textarea>
+    <button id="submit">转换</button>
+    <p class="tips">转换后的链接地址，请复制使用：</p>
+    <textarea id="parseUrl" class="parseUrl"></textarea>
+    <button id="jumpTo" disabled>跳转</button>
+    <div id="qr"></div>
+</div>
+<script src="/axios.min.js"></script>
+<script src="/qrcode.min.js"></script>
+<script>
+    var $ = window.$ || document.querySelector.bind(document);
+    var targetText = $('#targetUrl');
+    var parseText = $('#parseUrl');
+    var submit = function () {
+        $('#submit').disabled = true;
+        var targetUrl = targetText.value;
+        var matches = /(taobao|tmall).com\/.*?[?&]id=(.*?)($|&.*$)/.exec(targetUrl);
+        if (matches === null) {
+            alert('未能正确取得货品id');
+            return;
+        } else {
+            var type = matches[1], id = matches[2];
+            axios.post('/crawler/api/v1/crawl/'+type+'/'+id, {})
+                .then(function(res) {
+                    $('#submit').disabled = false;
+                    console.log(res);
+                    parseText.value = res.data.url;
+                    new QRCode(document.getElementById('qr'), res.data.url);
+                    disable();
+                })
+                .catch(function(err) {
+                    $('#submit').disabled = false;
+                    console.log(err);
+                    alert('服务器错误');
+                });
+        }
+    }
+    var disable = function() {
+        if (parseText.value) {
+            $('#jumpTo').url = parseText.value
+            $('#jumpTo').disabled = false;
+        } else {
+            $('#jumpTo').disabled = true;
+        }
+    }
+    var jump = function() {
+        window.open($('#jumpTo').url);
+    }
+    window.onload = function() {
+        $('#submit').addEventListener('click', submit);
+        $('#jumpTo').addEventListener('click', jump);
+    }
+</script>

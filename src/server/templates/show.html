@@ -1,0 +1,23 @@
+<div class="info">
+    <div class="banner"><img src="{{{img}}}" alt=""></div>
+    <div class="title">
+        <h2>{{title}}</h2>
+    </div>
+    <div class="prices">
+        {{#each price}}
+            <div class="price">
+                <p {{#if this.promotion}}class="delete"{{/if}}>原价: &yen;{{this.price}}</p>
+                <p class="promotions">
+                {{#each this.promotion}}
+                    <span class="promotion">{{this.type}}: &yen;{{this.price}}</span>
+                {{/each}}
+                </p>
+            </div>
+        {{/each}}
+    </div>
+</div>
+<div class="bottom_nav">
+    <a class="home" href="/">首页</a>
+    <a class="tobuy" href="https://item.taobao.com/item.htm?id={{id}}">去购买</a>
+    <a class="toTop" href="javascript:window.scrollTo(0,0);">顶部</a>
+</div>
